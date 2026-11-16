@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Documentation: Markdown Bridge for Confluence</title>
+<meta name="description" content="How to import Markdown into Confluence and export Confluence pages to Markdown with Markdown Bridge, with the full list of conversions and limits.">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header>
+  <a class="brand" href="index.html">Markdown Bridge</a>
+  <nav aria-label="Site"><ul>
+    <li><a href="docs.html" aria-current="page">Docs</a></li><li><a href="security.html">Security</a></li><li><a href="privacy.html">Privacy</a></li><li><a href="terms.html">Terms</a></li><li><a href="accessibility.html">Accessibility</a></li><li><a href="support.html">Support</a></li>
+  </ul></nav>
+</header>
+<main id="main">
+<h1>Documentation</h1>
+<p class="updated">Last updated: 16 November 2026</p>
+
+<h2>Where to find the app</h2>
+<ul>
+  <li><strong>Apps menu, Markdown Bridge:</strong> the full app with Import and Export.</li>
+  <li><strong>Space sidebar, Markdown Bridge:</strong> the same app with the current space preselected.</li>
+  <li><strong>Page menu (three dots), Export to Markdown:</strong> export the page you are on, with or without the pages under it.</li>
+</ul>
+
+<h2>Import Markdown into Confluence</h2>
+<ol>
+  <li>Open Markdown Bridge and stay on the Import tab.</li>
+  <li>Drop files, a folder or a zip, or use the buttons.</li>
+  <li>Choose the space. To place the pages under a specific page, type that page's exact title.</li>
+  <li>Choose what happens when a title already exists: skip, update, or import as a copy.</li>
+  <li>Check the page tree and any notes, then select Import.</li>
+  <li>When it finishes, review the results and download the CSV report if you want a record.</li>
+</ol>
+
+<h3>How files become pages</h3>
+<table>
+  <thead><tr><th scope="col">In your files</th><th scope="col">In Confluence</th></tr></thead>
+  <tbody>
+    <tr><td>A Markdown file (<code>.md</code>, <code>.markdown</code>, <code>.mdx</code>)</td><td>One page</td></tr>
+    <tr><td>A folder</td><td>A parent page for the pages inside it</td></tr>
+    <tr><td><code>README.md</code>, <code>index.md</code> or <code>_index.md</code> in a folder</td><td>The content of that folder's page</td></tr>
+    <tr><td>A folder with no such file</td><td>A page that lists its child pages</td></tr>
+    <tr><td><code>guide.md</code> next to a <code>guide/</code> folder</td><td>The folder's pages go under the Guide page</td></tr>
+  </tbody>
+</table>
+<p>The page title comes from <code>title</code> in the front matter, then the first level 1 heading, then the file name. Titles must be unique in a space, so duplicates within one import get the parent's name added.</p>
+
+<h3>Front matter</h3>
+<p>An optional block at the top of a file:</p>
+<pre><code>---
+title: Deployment guide
+labels: [howto, platform]
+confluence_id: 123456
+---</code></pre>
+<ul>
+  <li><code>title</code>: the page title.</li>
+  <li><code>labels</code> or <code>tags</code>: added as page labels.</li>
+  <li><code>confluence_id</code>: written by exports. With "Update the existing page", the import writes back to that exact page.</li>
+</ul>
+
+<h3>What converts on import</h3>
+<table>
+  <thead><tr><th scope="col">Markdown</th><th scope="col">Confluence</th></tr></thead>
+  <tbody>
+    <tr><td>Headings, bold, italic, strikethrough, inline code</td><td>The same</td></tr>
+    <tr><td>Bulleted and numbered lists, nested</td><td>Lists</td></tr>
+    <tr><td>Task lists <code>- [ ]</code> and <code>- [x]</code></td><td>Task lists with checkboxes</td></tr>
+    <tr><td>Tables with alignment</td><td>Tables</td></tr>
+    <tr><td>Fenced code with a language</td><td>Code block macro with that language</td></tr>
+    <tr><td>Block quotes</td><td>Quotes</td></tr>
+    <tr><td><code>&gt; [!NOTE]</code>, <code>[!TIP]</code>, <code>[!IMPORTANT]</code>, <code>[!WARNING]</code>, <code>[!CAUTION]</code></td><td>Info, tip, note and warning panels</td></tr>
+    <tr><td>Links to other Markdown files in the import</td><td>Links to the new pages</td></tr>
+    <tr><td>Links to other local files</td><td>The file is attached and linked</td></tr>
+    <tr><td>Local images</td><td>Uploaded as attachments and shown in place</td></tr>
+    <tr><td>Web images and links</td><td>Kept as they are</td></tr>
+    <tr><td>Raw HTML</td><td>Shown as text. Only <code>br</code>, <code>sub</code>, <code>sup</code>, <code>u</code>, <code>kbd</code> and <code>mark</code> are converted</td></tr>
+  </tbody>
+</table>
+
+<h2>Export Confluence to Markdown</h2>
+<ol>
+  <li>Open the Export tab, or use Export to Markdown in a page's menu.</li>
+  <li>Choose the whole space, one page with everything under it, or one page only.</li>
+  <li>Choose options, then select Export. The download starts when it finishes.</li>
+</ol>
+<h3>Options</h3>
+<ul>
+  <li><strong>Header block (front matter):</strong> adds title, page id, space, labels, source link and last updated time to each file.</li>
+  <li><strong>Include images and files:</strong> saves attachments used in pages into an <code>_attachments</code> folder and links to them with relative paths. When off, images link to their Confluence address.</li>
+  <li><strong>One file for AI tools:</strong> combines all exported pages into a single Markdown file with a source link under each page title.</li>
+</ul>
+<h3>What you get</h3>
+<p>A zip that mirrors the page tree. A page with child pages becomes a folder with a <code>README.md</code>. A page without children becomes <code>page-title.md</code>. A single page with no attachments downloads as one <code>.md</code> file.</p>
+<h3>What converts on export</h3>
+<table>
+  <thead><tr><th scope="col">Confluence</th><th scope="col">Markdown</th></tr></thead>
+  <tbody>
+    <tr><td>Headings, text styles, lists, task lists, tables, code blocks, quotes, dividers</td><td>The same in GitHub-flavored Markdown</td></tr>
+    <tr><td>Info, note, tip, warning and error panels</td><td>GitHub callouts such as <code>&gt; [!NOTE]</code></td></tr>
+    <tr><td>Links to pages in the export</td><td>Relative links to the exported files</td></tr>
+    <tr><td>Images and attachments</td><td>Files in <code>_attachments</code>, or links</td></tr>
+    <tr><td>Mentions, dates, statuses, emoji</td><td>Plain text: <code>@Name</code>, <code>2026-11-16</code>, <code>`DONE`</code></td></tr>
+    <tr><td>Expand sections</td><td><code>&lt;details&gt;</code> blocks</td></tr>
+    <tr><td>Page layouts with columns</td><td>Column content one after another</td></tr>
+    <tr><td>Merged table cells</td><td>Flattened to simple cells</td></tr>
+    <tr><td>Macros (table of contents, Jira issues and others)</td><td>A comment naming the macro</td></tr>
+  </tbody>
+</table>
+
+<h2>Round trip</h2>
+<p>Export with the header block on, edit the files, then import the folder with "Update the existing page". Each file updates the page named by its <code>confluence_id</code>. Confluence keeps the previous version in page history.</p>
+
+<h2>Limits</h2>
+<ul>
+  <li>Import: up to 2000 Markdown files, 5000 files in total and 300 MB per run. Single Markdown files up to 2 MB.</li>
+  <li>Export: single attachments over 25 MB are left out and listed in the results.</li>
+  <li>Pages that sit under a Confluence folder, whiteboard or database export as top-level files.</li>
+  <li>Large runs are paced by Confluence's rate limits. The app waits and retries by itself.</li>
+</ul>
+</main>
+<footer><p>Markdown Bridge is an independent app for Atlassian Confluence. Atlassian and Confluence are trademarks of Atlassian.</p></footer>
+</body>
+</html>

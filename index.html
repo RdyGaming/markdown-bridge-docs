@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Markdown Bridge for Confluence: bulk Markdown import and export</title>
+<meta name="description" content="Markdown Bridge imports folders of Markdown files into Confluence Cloud as page trees and exports pages or whole spaces as clean Markdown. Runs on Atlassian. No data leaves your site.">
+<link rel="stylesheet" href="site.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"SoftwareApplication","name":"Markdown Bridge for Confluence","applicationCategory":"BusinessApplication","operatingSystem":"Confluence Cloud","description":"Bulk Markdown import and export for Confluence Cloud. Folders become page trees, links and images are kept, and exports are ready for Git or AI tools.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD","description":"Free for sites with up to 10 users. Paid per user above that through the Atlassian Marketplace."}},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"How do I import Markdown files into Confluence?","acceptedAnswer":{"@type":"Answer","text":"Open Markdown Bridge from the Apps menu, drop a folder or zip of Markdown files, choose a space and an optional parent page, check the page tree preview, and select Import. Each file becomes a page and each folder becomes a parent page."}},
+{"@type":"Question","name":"How do I export a Confluence space to Markdown?","acceptedAnswer":{"@type":"Answer","text":"Open Markdown Bridge, go to Export, choose the space, and select Export. You get a zip with one Markdown file per page in the same tree as the space, with images saved next to them."}},
+{"@type":"Question","name":"Does Markdown Bridge send my content to an outside server?","acceptedAnswer":{"@type":"Answer","text":"No. Markdown Bridge runs on Atlassian Forge and in your browser. It has no server of its own, stores nothing, and makes no requests outside Atlassian."}},
+{"@type":"Question","name":"Can I use exported Markdown with AI tools?","acceptedAnswer":{"@type":"Answer","text":"Yes. The single-file option combines a page tree or a whole space into one Markdown file with source links, sized for pasting into AI assistants or loading into a retrieval system."}},
+{"@type":"Question","name":"Are links between Markdown files kept?","acceptedAnswer":{"@type":"Answer","text":"Yes. On import, relative links between your files become links between the new Confluence pages. On export, links between exported pages become relative links between the Markdown files."}}
+]}]}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header>
+  <a class="brand" href="index.html">Markdown Bridge</a>
+  <nav aria-label="Site"><ul>
+    <li><a href="docs.html">Docs</a></li><li><a href="security.html">Security</a></li><li><a href="privacy.html">Privacy</a></li><li><a href="terms.html">Terms</a></li><li><a href="accessibility.html">Accessibility</a></li><li><a href="support.html">Support</a></li>
+  </ul></nav>
+</header>
+<main id="main">
+<h1>Markdown in. Markdown out. For Confluence Cloud.</h1>
+<p class="lede">Markdown Bridge imports folders of Markdown files into Confluence as page trees, and exports pages or whole spaces as clean Markdown. One app for both directions.</p>
+
+<h2>What it does</h2>
+<ul class="cards">
+  <li><h3>Bulk import</h3><p>Drop a folder or a zip. Folders become parent pages, files become pages, and you see the full tree before anything is created.</p></li>
+  <li><h3>Links and images kept</h3><p>Links between files become links between pages. Local images are uploaded as attachments.</p></li>
+  <li><h3>Bulk export</h3><p>Export one page, a page tree, or a whole space, at any depth, as a zip that mirrors the page tree.</p></li>
+  <li><h3>Ready for AI tools</h3><p>Combine a space into one Markdown file with source links for assistants and retrieval systems.</p></li>
+  <li><h3>Errors do not stop the run</h3><p>If one page fails, the rest continue. A report lists every page and what happened.</p></li>
+  <li><h3>Round trip</h3><p>Export, edit in your editor or Git, and import again to update the same pages.</p></li>
+</ul>
+
+<h2>Private by design</h2>
+<p>Markdown Bridge runs on Atlassian Forge and in your browser. It has no server of its own, stores nothing, and makes no requests outside Atlassian. It acts with your own Confluence permissions, so it can only read and change what you already can. Details are on the <a href="security.html">security page</a>.</p>
+
+<h2>Questions</h2>
+<h3>How do I import Markdown files into Confluence?</h3>
+<p>Open Markdown Bridge from the Apps menu, drop a folder or zip of Markdown files, choose a space and an optional parent page, check the page tree preview, and select Import.</p>
+<h3>How do I export a Confluence space to Markdown?</h3>
+<p>Open Markdown Bridge, go to Export, choose the space, and select Export. You get a zip with one Markdown file per page in the same tree as the space.</p>
+<h3>Does it send my content to an outside server?</h3>
+<p>No. There is no outside server.</p>
+<h3>Can I use exported Markdown with AI tools?</h3>
+<p>Yes. The single-file option produces one Markdown file with source links.</p>
+<h3>What Markdown is supported?</h3>
+<p>Headings, emphasis, lists, task lists, tables, code blocks with languages, block quotes, note and warning callouts, links, images and front matter. The <a href="docs.html">docs</a> list every conversion.</p>
+</main>
+<footer><p>Markdown Bridge is an independent app for Atlassian Confluence. Atlassian and Confluence are trademarks of Atlassian. <a href="terms.html">Terms</a> · <a href="privacy.html">Privacy</a></p></footer>
+</body>
+</html>

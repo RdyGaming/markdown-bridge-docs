@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Security: Markdown Bridge for Confluence</title>
+<meta name="description" content="How Markdown Bridge protects your Confluence content: no backend, no storage, no outbound requests, least-privilege scopes, and how to report a vulnerability.">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header>
+  <a class="brand" href="index.html">Markdown Bridge</a>
+  <nav aria-label="Site"><ul>
+    <li><a href="docs.html">Docs</a></li><li><a href="security.html" aria-current="page">Security</a></li><li><a href="privacy.html">Privacy</a></li><li><a href="terms.html">Terms</a></li><li><a href="accessibility.html">Accessibility</a></li><li><a href="support.html">Support</a></li>
+  </ul></nav>
+</header>
+<main id="main">
+<h1>Security</h1>
+<p class="updated">Last updated: 16 November 2026</p>
+<p class="lede">Markdown Bridge is built so that there is as little to trust as possible: no vendor server, no stored data, no outbound traffic.</p>
+
+<h2>Architecture</h2>
+<ul>
+  <li><strong>Runs on Atlassian Forge.</strong> The app is a Forge Custom UI app. Atlassian hosts it and isolates it in a sandboxed frame.</li>
+  <li><strong>No backend.</strong> There are no app functions, web triggers or remote services. All conversion happens in your browser.</li>
+  <li><strong>No storage.</strong> The app does not use Forge storage, databases, cookies or local storage.</li>
+  <li><strong>No egress.</strong> The app declares no external hosts. Forge blocks requests to anything not declared, so the app cannot send data outside Atlassian.</li>
+  <li><strong>Acts as you.</strong> Every Confluence request is made as the signed-in user. Space and page permissions and restrictions apply as usual.</li>
+</ul>
+
+<h2>Permissions the app asks for</h2>
+<table>
+  <thead><tr><th scope="col">Scope</th><th scope="col">Why</th></tr></thead>
+  <tbody>
+    <tr><td><code>read:space:confluence</code></td><td>List the spaces you can choose from.</td></tr>
+    <tr><td><code>read:page:confluence</code></td><td>Read pages for export and check for existing titles on import.</td></tr>
+    <tr><td><code>write:page:confluence</code></td><td>Create and update pages on import.</td></tr>
+    <tr><td><code>read:attachment:confluence</code></td><td>Include images and files in exports.</td></tr>
+    <tr><td><code>write:attachment:confluence</code>, <code>read:content-details:confluence</code></td><td>Upload images referenced by imported Markdown.</td></tr>
+    <tr><td><code>read:label:confluence</code>, <code>write:label:confluence</code></td><td>Carry labels through export and import.</td></tr>
+  </tbody>
+</table>
+<p>The app does not ask for user, group, permission, admin or delete scopes. It cannot delete pages.</p>
+
+<h2>Handling untrusted content</h2>
+<ul>
+  <li>Imported Markdown is converted to Confluence storage format with every piece of text escaped. Raw HTML in Markdown is never passed through. It is shown as text.</li>
+  <li>Links are limited to http, https, mailto and tel, or to pages and files in the same import. Script and data addresses are removed, including encoded or disguised forms.</li>
+  <li>Exported Markdown escapes page text, blocks unsafe link addresses, and neutralizes content that could break out of comments.</li>
+  <li>Zip files are checked for size, file count and unsafe paths before unpacking.</li>
+  <li>The app's own interface never builds HTML from content. It uses text nodes only, under a strict content security policy with no inline script.</li>
+  <li>Report files guard against spreadsheet formula injection.</li>
+</ul>
+
+<h2>Development practices</h2>
+<ul>
+  <li>Automated tests cover every conversion, including randomized inputs that must always produce well-formed, allow-listed output.</li>
+  <li>A prelaunch check fails the build if the app declares egress, contains inline script, or writes HTML strings into the page.</li>
+  <li>Three runtime dependencies (Atlassian's bridge, a Markdown parser, a zip library), pinned by lockfile and reviewed on update.</li>
+  <li>No secrets exist in the app. There are no API keys or tokens to leak.</li>
+</ul>
+
+<h2>Limits you should know</h2>
+<ul>
+  <li>Import with the update option overwrites page bodies. Confluence page history lets you restore earlier versions.</li>
+  <li>Exported files leave Confluence and land on your device. From there, your organization's own controls apply.</li>
+</ul>
+
+<h2>Reporting a vulnerability</h2>
+<p>Email <a href="mailto:doustd+redheaddev@gmail.com">doustd+redheaddev@gmail.com</a> with the subject "Security". Include steps to reproduce. Please do not include real confidential content. We aim to acknowledge reports within 2 business days and to fix confirmed critical issues within the time frames of Atlassian's security bug fix policy for Marketplace apps. We will not take legal action against good-faith research that avoids privacy violations, data destruction and service disruption.</p>
+</main>
+<footer><p>Markdown Bridge is an independent app for Atlassian Confluence. Atlassian and Confluence are trademarks of Atlassian.</p></footer>
+</body>
+</html>
